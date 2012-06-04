@@ -34,9 +34,7 @@ public class ReduRestClient implements IReduRestClient {
 	}
 
 	public User me() {
-		Object a = handler.request(Verb.GET, User.me() + ".json");
-		System.out.println(a);
-		return null;
+		return (User) handler.request(Verb.GET, User.class, User.me());
 	}
 
 }

@@ -4,7 +4,4 @@ public class Activity extends Status {
 
 	private String text;
 	
-	public Activity() {
-		
-	}
 }

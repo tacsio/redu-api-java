@@ -11,4 +11,20 @@ public class Base {
 	protected int id;
 	protected List<?> links;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public List<?> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<?> links) {
+		this.links = links;
+	}
+
 }
