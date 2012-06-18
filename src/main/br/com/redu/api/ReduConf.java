@@ -15,6 +15,7 @@ public class ReduConf {
 	private static final String CONSUMER_SECRET_KEY = "redu.consumer_secret_key";
 	private static final String CALLBACK = "redu.callback";
 	private static final String BASE_URL = "redu.base_url";
+	private static final String SCOPE = "redu.scope";
 
 	private Properties properties = new Properties();
 	private static ReduConf instance;
@@ -38,7 +39,12 @@ public class ReduConf {
 	}
 
 	public String getAuthUrl() {
-		return properties.getProperty(AUTH_URL);
+		return properties.getProperty(AUTH_URL,
+				"http://www.redu.com.br/oauth/authorize") + "?client_id=%s";
+	}
+
+	public String getScopedAuthUrl() {
+		return this.getAuthUrl() + "&scope=%s";
 	}
 
 	public String getConsumerKey() {
@@ -50,14 +56,21 @@ public class ReduConf {
 	}
 
 	public String getAccessTokenUrl() {
-		return properties.getProperty(ACCESS_TOKEN_URL);
+		return properties.getProperty(ACCESS_TOKEN_URL,
+				"http://www.redu.com.br/oauth/token")
+				+ "?grant_type=authorization_code";
 	}
 
 	public String getCallback() {
 		return properties.getProperty(CALLBACK, "");
 	}
 
-	public String getBaseUrl() {
-		return properties.getProperty(BASE_URL);
+	public String getScope() {
+		return properties.getProperty(SCOPE, null);
 	}
+
+	public String getBaseUrl() {
+		return properties.getProperty(BASE_URL, "http://www.redu.com.br/api");
+	}
+
 }

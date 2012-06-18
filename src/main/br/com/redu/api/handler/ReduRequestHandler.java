@@ -16,16 +16,21 @@ public class ReduRequestHandler {
 	}
 
 	public Object request(Verb verb, Class<?> clazz, String url,
-			Object... params) {
+			Object... args) {
 		if (!this.manager.authenticated()) {
 			this.manager.setup();
 		}
-		OAuthRequest request = new OAuthRequest(verb, url + ".json");
+		
+		if(args != null && args.length > 0){
+			url = String.format(url, args);
+		}
+		
+		OAuthRequest request = new OAuthRequest(verb, url + ".json");//TODO: is necessary?  (.json)
 		request.addHeader("Content-Type", "application/json");
 		request.addHeader("charset", "utf-8");
 		this.manager.signRequest(request);
 		Response response = request.send();
-		// TODO: handling errors (http erro code)
+		// TODO: handling errors (http error code)
 
 		return JsonMapping.evalResource(response.getBody(), clazz);
 	}

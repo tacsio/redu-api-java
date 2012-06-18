@@ -1,0 +1,31 @@
+[{
+    "id": 1,
+    "last_name": "User",
+    "birthday": "1992-02-29",
+    "links": [{
+        "href": "http://www.redu.com.br/api/users/test_user",
+        "rel": "self"
+    }, {
+        "href": "http://www.redu.com.br/api/users/test_user/enrollments",
+        "rel": "enrollments"
+    }],
+    "login": "test_user",
+    "friends_count": 0,
+    "email": "test_user@example.com",
+    "first_name": "Test"
+}, {
+    "id": 3,
+    "last_name": "Cavalcanti",
+    "birthday": "1987-03-06",
+    "links": [{
+        "href": "http://www.redu.com.br/api/users/guiocavalcanti",
+        "rel": "self"
+    }, {
+        "href": "http://www.redu.com.br/api/users/guiocavalcanti/enrollments",
+        "rel": "enrollments"
+    }],
+    "login": "guiocavalcanti",
+    "friends_count": 10,
+    "email": "guiocavalcanti@gmail.com",
+    "first_name": "Guilherme"
+}]

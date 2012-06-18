@@ -23,8 +23,15 @@ public class ReduOAuth20 extends DefaultApi20 {
 
 	@Override
 	public String getAuthorizationUrl(OAuthConfig config) {
-		return String.format(ReduConf.getInstance().getAuthUrl(),
-				config.getApiKey(), OAuthEncoder.encode(config.getCallback()));
+		if (config.hasScope()) {
+			return String.format(ReduConf.getInstance().getAuthUrl(),
+					config.getApiKey(),
+					OAuthEncoder.encode(config.getCallback()));
+		} else {
+			return String.format(ReduConf.getInstance().getScopedAuthUrl(),
+					config.getApiKey(),
+					OAuthEncoder.encode(config.getCallback()));
+		}
 	}
 
 	@Override

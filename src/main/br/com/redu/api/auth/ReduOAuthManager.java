@@ -14,10 +14,18 @@ public class ReduOAuthManager {
 
 	public ReduOAuthManager(OAuthClientCredentials credentials) {
 		this.credentials = credentials;
-		this.service = new ServiceBuilder().provider(ReduOAuth20.class)
-				.apiKey(credentials.getApiKey())
+
+		ServiceBuilder builder = new ServiceBuilder()
+				.provider(ReduOAuth20.class).apiKey(credentials.getApiKey())
 				.apiSecret(credentials.getApiSecretKey())
-				.callback(credentials.getCallback()).build();
+				.callback(credentials.getCallback());
+
+		//Scope
+		if (null != credentials.getScope()) {
+			builder = builder.scope(credentials.getScope());
+		}
+
+		this.service = builder.build();
 	}
 
 	public String getAuthorizationUrl() {
@@ -32,16 +40,18 @@ public class ReduOAuthManager {
 		this.service.signRequest(this.credentials.getAccessToken(), request);
 	}
 
-	// TODO: learn aboud oob auth(non web applications)
+	// TODO: learn about oob auth(non web applications) and how ulr callback works at scribe
 	public void getAccessToken(String pin) {
 		this.credentials.setAccessToken(this.service.getAccessToken(null,
 				new Verifier(pin.trim())));
 	}
 
-	// TODO: learn aboud oob auth(non web applications)
+	// TODO: learn about oob auth(non web applications) and how ulr callback works at scribe
+	// FIXME: external auth || sub-workflow >__<
 	public void setup() {
 		System.out.println(this.getAuthorizationUrl());
-		Scanner pin = new Scanner(System.in);
+		System.out.println("Trust me... it's temporary ;D");
+		Scanner pin = new Scanner(System.in); // FIXME: remove Oo"
 		this.getAccessToken(pin.nextLine());
 
 	}

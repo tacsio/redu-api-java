@@ -15,22 +15,33 @@ public class ReduRestClient implements IReduRestClient {
 	private ReduRequestHandler handler;
 
 	public ReduRestClient() {
-		this.init(ReduConf.getInstance());
+
+		ReduConf config = ReduConf.getInstance();
+		this.credentials = new OAuthClientCredentials(config.getConsumerKey(),
+				config.getConsumerSecretKey(), config.getCallback(),
+				config.getScope());
+
+		this.init();
 	}
 
-	private void init(ReduConf config) {
-		this.credentials = new OAuthClientCredentials(config.getConsumerKey(),
-				config.getConsumerSecretKey(), config.getCallback());
+	public ReduRestClient(String consumerKey, String secretKey) {
+		ReduConf config = ReduConf.getInstance();
+		this.credentials = new OAuthClientCredentials(consumerKey, secretKey,
+				config.getCallback(), config.getScope());
+		this.init();
+	}
+
+	private void init() {
 		this.manager = new ReduOAuthManager(this.credentials);
 		this.handler = new ReduRequestHandler(this.manager);
 	}
 
 	public User getUser(int id) {
-		return null;
+		return (User) handler.request(Verb.GET, User.class, User.show(), id);
 	}
 
 	public User getUser(String login) {
-		return null;
+		return (User) handler.request(Verb.GET, User.class, User.show(), login);
 	}
 
 	public User me() {

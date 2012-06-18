@@ -4,19 +4,14 @@ import org.scribe.model.Token;
 
 public class OAuthClientCredentials {
 
-	private String apiKey, apiSecretKey, callback;
+	private String apiKey, apiSecretKey, callback, scope;
 	private Token accessToken = null;
 
-	public OAuthClientCredentials(String apiKey, String apiSecretKey) {
-		this.apiKey = apiKey;
-		this.apiSecretKey = apiSecretKey;
-		this.callback = "";
-	}
-
-	public OAuthClientCredentials(String apiKey, String apiSecretKey, String callback) {
+	public OAuthClientCredentials(String apiKey, String apiSecretKey, String callback, String scope) {
 		this.apiKey = apiKey;
 		this.apiSecretKey = apiSecretKey;
 		this.callback = callback;
+		this.scope = scope;
 	}
 
 	public Token getAccessToken() {
@@ -41,6 +36,14 @@ public class OAuthClientCredentials {
 
 	public void setCallback(String callback) {
 		this.callback = callback;
+	}
+
+	public String getScope() {
+		return scope;
+	}
+
+	public void setScope(String scope) {
+		this.scope = scope;
 	}
 
 }

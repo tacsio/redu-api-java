@@ -1,5 +1,7 @@
 package br.com.redu.api.resource.user;
 
+import java.util.List;
+
 import br.com.redu.api.ReduConf;
 import br.com.redu.api.resource.Base;
 
@@ -15,8 +17,19 @@ public class User extends Base {
 	private String mobile;
 	private String localization;
 
-	public static String me() {
-		return ReduConf.getInstance().getBaseUrl() + "/me";
+	public User(int id, List<?> links, String first_name, String last_name,
+			String birthday, String login, int friends_count, String email,
+			String birth_localization, String mobile, String localization) {
+		super(id, links);
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.birthday = birthday;
+		this.login = login;
+		this.friends_count = friends_count;
+		this.email = email;
+		this.birth_localization = birth_localization;
+		this.mobile = mobile;
+		this.localization = localization;
 	}
 
 	public String getLocalization() {
@@ -89,6 +102,14 @@ public class User extends Base {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public static String me() {
+		return ReduConf.getInstance().getBaseUrl() + "/me";
+	}
+
+	public static String show() {
+		return ReduConf.getInstance().getBaseUrl() + "/api/users/%s";
 	}
 
 }
