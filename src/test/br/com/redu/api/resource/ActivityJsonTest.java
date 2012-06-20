@@ -1,4 +1,4 @@
-package br.com.redu.api;
+package br.com.redu.api.resource;
 
 import static org.junit.Assert.*;
 

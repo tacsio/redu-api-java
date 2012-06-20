@@ -1,9 +1,16 @@
 package br.com.redu.api.resource.user;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.scribe.model.Verb;
 
 import br.com.redu.api.ReduConf;
 import br.com.redu.api.resource.Base;
+import br.com.redu.api.resource.wall.Status;
+
+import com.google.gson.reflect.TypeToken;
 
 public class User extends Base {
 
@@ -104,6 +111,14 @@ public class User extends Base {
 		this.email = email;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Status> getTimeline() {
+		Type timeline = new TypeToken<ArrayList<Status>>() {}.getType();
+		
+		return (ArrayList<Status>) this.handler.request(Verb.GET, timeline,
+				this.getLink("timeline"));
+	}
+	
 	public static String me() {
 		return ReduConf.getInstance().getBaseUrl() + "/me";
 	}

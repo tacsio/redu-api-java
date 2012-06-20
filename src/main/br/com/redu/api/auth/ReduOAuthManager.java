@@ -1,7 +1,5 @@
 package br.com.redu.api.auth;
 
-import java.util.Scanner;
-
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Verifier;
@@ -51,8 +49,11 @@ public class ReduOAuthManager {
 	public void setup() {
 		System.out.println(this.getAuthorizationUrl());
 		System.out.println("Trust me... it's temporary ;D");
-		Scanner pin = new Scanner(System.in); // FIXME: remove Oo"
-		this.getAccessToken(pin.nextLine());
+		//Scanner pin = new Scanner(System.in); // FIXME: remove Oo"
+		
+		//this.getAccessToken(pin.nextLine());
+		this.getAccessToken("7Mie0S3jehKzQjPWeL1s");//FIXME: REMOVERRRR
+		
 
 	}
 

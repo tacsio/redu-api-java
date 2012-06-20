@@ -43,10 +43,6 @@ public class ReduConf {
 				"http://www.redu.com.br/oauth/authorize") + "?client_id=%s";
 	}
 
-	public String getScopedAuthUrl() {
-		return this.getAuthUrl() + "&scope=%s";
-	}
-
 	public String getConsumerKey() {
 		return properties.getProperty(CONSUMER_KEY);
 	}

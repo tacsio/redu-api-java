@@ -1,5 +1,7 @@
 package br.com.redu.api.json;
 
+import java.lang.reflect.Type;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -12,7 +14,7 @@ public class JsonMapping {
 		this.gson = new Gson();
 	}
 
-	public static synchronized Object evalResource(String json, Class<?> resouce) {
+	public static synchronized Object evalResource(String json, Type clazz) {
 
 		Object resource = null;
 
@@ -21,7 +23,7 @@ public class JsonMapping {
 		}
 
 		try {
-			resource = mapper.gson.fromJson(json, resouce);
+			resource = mapper.gson.fromJson(json, clazz);
 		} catch (JsonSyntaxException e) {
 			System.err.println("Malformed json. ");
 			System.err.println(e.getMessage());

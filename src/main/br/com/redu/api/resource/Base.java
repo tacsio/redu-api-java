@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.redu.api.ReduConf;
+import br.com.redu.api.handler.ReduRequestHandler;
 
 public class Base {
 
@@ -13,6 +14,7 @@ public class Base {
 	protected int id;
 	protected List<?> links;
 	protected Map<String, String> resourceLinks;
+	protected ReduRequestHandler handler;
 
 	public Base(int id, List<?> links) {
 		this.id = id;
@@ -34,9 +36,17 @@ public class Base {
 	public void setLinks(List<?> links) {
 		this.links = links;
 	}
-	
-	public Object getLink(String key) {
-		if(null == this.resourceLinks){
+
+	public ReduRequestHandler getHandler() {
+		return this.handler;
+	}
+
+	public void setHandler(ReduRequestHandler handler) {
+		this.handler = handler;
+	}
+
+	public String getLink(String key) {
+		if (null == this.resourceLinks) {
 			this.processLinks();
 		}
 		return this.resourceLinks.get(key);

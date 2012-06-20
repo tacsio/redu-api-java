@@ -23,20 +23,32 @@ public class ReduOAuth20 extends DefaultApi20 {
 
 	@Override
 	public String getAuthorizationUrl(OAuthConfig config) {
-		if (config.hasScope()) {
-			return String.format(ReduConf.getInstance().getAuthUrl(),
-					config.getApiKey(),
-					OAuthEncoder.encode(config.getCallback()));
-		} else {
-			return String.format(ReduConf.getInstance().getScopedAuthUrl(),
-					config.getApiKey(),
-					OAuthEncoder.encode(config.getCallback()));
+
+		String authorizationUrl = String.format(ReduConf.getInstance()
+				.getAuthUrl(), config.getApiKey());
+
+		if (!config.getCallback().isEmpty() || config.hasScope()) {
+			authorizationUrl += "?";
 		}
+
+		if (!config.getCallback().isEmpty()) {
+			authorizationUrl = authorizationUrl + "redirect_uri="
+					+ OAuthEncoder.encode(config.getCallback());
+			if (config.hasScope()) {
+				authorizationUrl += "&";
+			}
+		}
+
+		if (config.hasScope()) {
+			authorizationUrl = authorizationUrl + "scope="
+					+ OAuthEncoder.encode(config.getScope());
+		}
+
+		return authorizationUrl;
 	}
 
 	@Override
 	public AccessTokenExtractor getAccessTokenExtractor() {
 		return new JsonTokenExtractor();
 	}
-
 }
